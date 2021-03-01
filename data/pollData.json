@@ -1,1 +1,21 @@
-{"options":[{"name":"CandidateA","voteCount":3,"votesBy":[]},{"name":"CandidateB","voteCount":4,"votesBy":[]},{"name":"CandidateC","voteCount":2,"votesBy":[]}],"question":"Which candidate would you like to vote?","id":"1"}
+{
+    "options": [
+        {
+            "name": "CandidateA",
+            "voteCount": 3,
+            "votesBy": []
+        },
+        {
+            "name": "CandidateB",
+            "voteCount": 4,
+            "votesBy": []
+        },
+        {
+            "name": "CandidateC",
+            "voteCount": 2,
+            "votesBy": []
+        }
+    ],
+    "question": "Which candidate would you like to vote?",
+    "id": "1"
+}

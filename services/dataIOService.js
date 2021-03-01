@@ -1,32 +1,57 @@
-const fs = require('fs');
+var MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;
 
 // reads a file from the db
-const readFile = (filePath, returnJson = true, encoding = 'utf8') => {
+const readFile = (url, dbName, collectionName) => {
     return new Promise((resolve, reject) => {
-        fs.readFile(filePath, encoding, (err, data) => {
-            if (err) {
-                console.log('Error reading file %s', err);
-                reject(err.message);
-                return;
-            }
-            console.log('successful reading file');
-            resolve(returnJson ? JSON.parse(data) : data);
-        });
-    });
-}
-
-// writes a file intp the db
-const writeFile = (filePath, fileData, encoding = 'utf8') => {
-    return new Promise((resolve, reject) => {
-        fs.writeFile(filePath, JSON.stringify(fileData), encoding, (err) => {
-            if (err) {
-                console.log('Error writing file %s', err);
-                reject(err.message);
-                return;
-            }
-            resolve({'Success': "Record Successfully updated"});
+        MongoClient.connect(url, function (err, db) {
+            if (err) reject(err);
+            var dbo = db.db(dbName);
+            dbo.collection(collectionName).findOne({},function (err, res) {
+                console.log(res , " adnsdmcm;lkcx");
+                console.log(err);
+                db.close();
+                if (err) {
+                    reject(err);
+                    return;
+                }
+                resolve(res);
+            });
         });
     });
 };
 
-module.exports = {readFile, writeFile};
+// writes a file intp the db
+const writeFile = (url, dbName, collectionName, fileData) => {
+        return new Promise((resolve, reject) => {
+            MongoClient.connect(url, function (err, db) {
+                if (err) reject(err);
+                var dbo = db.db(dbName);
+                if(!(fileData._id == null || fileData._id == '')){
+                    console.log(fileData);
+                    var newvalues = { $set: {"options" : fileData.options}};
+                    dbo.collection(collectionName).updateOne({ "_id": new ObjectId(fileData._id) }, newvalues, function (err, res) {
+                        db.close();
+                        console.log("1 document updated");
+                        if (err) {
+                            reject(err);
+                            return;
+                        }
+                        if (res) {
+                            resolve({ 'Success': "Record Successfully updated" });
+                            return;
+                        }
+                    });
+                } else {
+                    dbo.collection(collectionName).insertOne(fileData, function(err, res) {
+                        if (err) throw reject(err);
+                        console.log("1 document inserted");
+                        resolve({ 'Success': "Record Successfully updated" });
+                        db.close();
+                      });
+                }
+            });
+        });
+    };
+
+    module.exports = { readFile, writeFile };

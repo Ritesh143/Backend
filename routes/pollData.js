@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
-const {dataPath} = require('../const/dataPath');
 var {readFile, writeFile} = require('../services/dataIOService');
+const { dataPath, URL, dbName, collectionName } = require('../const/dataPath');
 
 // get call to serve polldata
 router.get('/', function(req, res, next) {
-    readFile(dataPath.POLLDATA)
+    readFile(URL, dbName.POC, collectionName.POLLDATA)
     .then((data) => {
         res.send(data);
     })

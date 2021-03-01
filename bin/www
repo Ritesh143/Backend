@@ -8,7 +8,7 @@ var app = require('../app');
 var debug = require('debug')('backend:server');
 var http = require('http');
 var { readFile, writeFile } = require('../services/dataIOService');
-const { dataPath } = require('../const/dataPath');
+const { dataPath, URL, dbName, collectionName } = require('../const/dataPath');
 
 /**
  * Get port from environment and store in Express.
@@ -35,7 +35,7 @@ io.on('connection', (socket) => {
 
   //write and update poll Data
   socket.on('savepolldata', (savepolldata) => {
-    writeFile(dataPath.POLLDATA, savepolldata)
+    writeFile(URL, dbName.POC, collectionName.POLLDATA, savepolldata)
       .then((data) => {
         io.emit('polldataUpdate', savepolldata);
       })
@@ -45,7 +45,7 @@ io.on('connection', (socket) => {
 
   // sends poll data
   socket.on('getpolldata', () => {
-    readFile(dataPath.POLLDATA)
+    readFile(URL, dbName.POC, collectionName.POLLDATA)
       .then((data) => {
         io.emit('polldataUpdate', data);
       })
