@@ -9,7 +9,7 @@ router.post('/', function (req, res, next) {
             res.json(response);
         })
         .catch(err => {
-            console.log('errorrrrrr ', err);
+            console.log('error in authentication', err);
             if (err === 'User is not registered') {
                 res.status(404);
                 res.send('User is not registered');
