@@ -1,0 +1,38 @@
+{
+    "admin": {
+        "username": "admin",
+        "password": "admin",
+        "role": "ADMIN",
+        "id": 0
+    },
+    "ritesh1": {
+        "username": "ritesh1",
+        "password": "password1",
+        "role": "USER",
+        "id": 1
+    },
+    "ritesh2": {
+        "username": "ritesh2",
+        "password": "password2",
+        "role": "USER",
+        "id": 2
+    },
+    "ritesh3": {
+        "username": "ritesh3",
+        "password": "password3",
+        "role": "USER",
+        "id": 3
+    },
+    "ritesh4": {
+        "username": "ritesh4",
+        "password": "password4",
+        "role": "USER",
+        "id": 4
+    },
+    "ritesh5": {
+        "username": "ritesh5",
+        "password": "password5",
+        "role": "USER",
+        "id": 5
+    }
+}
