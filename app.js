@@ -32,6 +32,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 // authenticate user requests
 app.use('/users/authenticate', authRouter);
+// get and update pollData
 app.use('/polldata', pollRouter);
 
 // catch 404 and forward to error handler

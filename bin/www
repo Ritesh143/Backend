@@ -23,7 +23,7 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
-
+// integration with socket io to create polling
 const io = require('socket.io')(server, {
   cors: {
     origin: 'http://localhost:4200',
